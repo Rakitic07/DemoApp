@@ -53,13 +53,14 @@ app.post('/AnotherURL', function(req, res){
 				res.json({err:err});
 				return;
 			}
-            var output = {First_Name : data.jayson.Name["First name"], Last_Name : data.jayson.Name["Last name"]};
-            res.send(output);
+            //var output = {First_Name : data.jayson.Name["First name"], Last_Name : data.jayson.Name["Last name"]};
+            //res.send(output);
 			//res.json({data:data});
             
 //            res.send("<center>Name: "+a.jayson["First name"]+" and Last Name: "+a.jayson["Last Name"]+"</center>")
             
-            //var jayson = JSON.parse(data);
+            var jayson = JSON.parse(data);
+            res.send(jayson.jayson.Name["First name"]+ " " +jayson.jayson.Name["Last name"])
 //            for(var d in data){
 //                  res += JSON.parse(d);              
 //            }
