@@ -53,11 +53,15 @@ app.post('/AnotherURL', function(req, res){
 				res.json({err:err});
 				return;
 			}
-//            var output = {First_Name : data.jayson.Name["First name"], Last_Name : data.jayson.Name["Last name"]};
+            
+            //res.json({data:data});
+            
+                                                    
+//          var output = {First_Name : data.jayson.Name["First name"], Last_Name : data.jayson.Name["Last name"]};
             var n1 = data.jayson.Name["First name"];
             var n2 = data.jayson.Name["Last name"];
-            res.send("<center><marquee>First Name: <b><i>" + n1 + "</i></b><br><br>Last Name: <b><i>" + n2 + "</i></b></marqee></center>");
-			//res.json({data:data});
+            res.send("<center>First Name: <b><i>" + n1 + "</i></b><br><br>Last Name: <b><i>" + n2 + "</i></b></center>");
+			
             
 //            res.send("<center>Name: "+a.jayson["First name"]+" and Last Name: "+a.jayson["Last Name"]+"</center>")
             
@@ -68,6 +72,8 @@ app.post('/AnotherURL', function(req, res){
 //            }
 //            res.send("JSON parsed: "+res);
 //            
+            
+            
         });
 	} else {
 		res.json({err:"Please specify an id"});
@@ -142,6 +148,3 @@ app.get('/', function(req, res) {
 //var uname = process.env.cloudant_username;
 //var pwd = process.env.cloudant_password;
 //var cloudant = Cloudant({account:uname , password:pwd});
-
-
-
