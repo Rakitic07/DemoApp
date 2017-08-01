@@ -1,0 +1,9 @@
+---
+applications:
+- memory: 256M
+  instances: 1
+  domain: mybluemix.net
+  name: DemoApp32121
+  host: DemoApp32121
+  disk_quota: 1024M
+---

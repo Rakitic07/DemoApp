@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Demo App</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link href="icon.css" rel="stylesheet">
+    <!--<link rel="stylesheet" type="text/css" href="Public/materialize.css">
+    <link rel="stylesheet" type="text/css" href="Public/materialize.css">-->
+    <style>
+        #box-wrapper {
+            color: aliceblue;
+            background:#555555;
+            margin: 30px auto 100px;
+            overflow: hidden;
+            padding: 0px;
+            width: 750px;
+            border-radius: 30px 30px 30px 30px;
+            border: 1px solid #444444;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5), 0 1px 3px rgba(255, 255, 255, 0.2) inset;
+        }
+
+        #box {
+           height: 650px;
+           padding: 30px 160px;
+           background:#555;
+        }
+
+        #box #search input[type="text"] {
+            background: url(search-white.png) no-repeat 10px 6px #444;
+            border: 0 none;
+            font: bold italic 15px Roboto;
+            color: #d7d7d7;
+            width:190px;
+            padding: 6px 15px 6px 35px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            border-radius: 20px;
+            text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3); 
+            -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+            -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+            -webkit-transition: all 0.7s ease 0s;
+            -moz-transition: all 0.7s ease 0s;
+            -o-transition: all 0.7s ease 0s;
+            transition: all 0.7s ease 0s;
+            }
+
+        #box #search input[type="text"]:focus {
+            background: #fcfcfc;
+            color: #6a6f75;
+            width: 400px;
+            -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9) inset;
+            -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9) inset;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9) inset;
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            }
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!--<script type="text/javascript" src="materialize.js"></script>-->   
+</head>
+
+<body> 
+    <div id="box-wrapper">
+
+            <div id="box">
+            <form method="get" action="/SomeURL" id="search"><br><br><marquee>Store Names</marquee><br><br>
+                <center><input placeholder="First name: " name="fn" type="text">
+                <input placeholder="Last name: " name="ln" type="text"><br>
+                <button class="btn waves-effect waves-light" type="submit" value="submit" name="action">Submit</button><br><br><br><br>
+                    <marquee>Search by ID</marquee><br><br>                
+<!--                <button class="btn waves-effect waves-light" type="submit" name="action">Search</button>-->
+                </center>
+            </form>
+                
+            <form method="POST" action="/AnotherURL" id="search">
+            <center>
+            <input name="idsearch" placeholder="Search by id..." type="text"><br>
+            <button class="btn waves-effect waves-light" type="submit" name="action2">Search</button></center>
+            </form>
+                
+        </div>
+        
+    </div>
+    <div class="hiddendiv common"></div>
+</body>
+</html>
