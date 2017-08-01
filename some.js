@@ -53,8 +53,9 @@ app.post('/AnotherURL', function(req, res){
 				res.json({err:err});
 				return;
 			}
-
-			res.json({data:data});
+            var output = {First_Name : data.jayson.Name["First name"], Last_Name : data.jayson.Name["Last name"]};
+            res.send(output);
+			//res.json({data:data});
             
 //            res.send("<center>Name: "+a.jayson["First name"]+" and Last Name: "+a.jayson["Last Name"]+"</center>")
             
@@ -64,7 +65,7 @@ app.post('/AnotherURL', function(req, res){
 //            }
 //            res.send("JSON parsed: "+res);
 //            
-//		});
+        });
 	} else {
 		res.json({err:"Please specify an id"});
 	}
