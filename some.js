@@ -1,3 +1,4 @@
+//------------Importing Modules------------
 var express = require('express');
 var app = express();
 var path = require("path");
@@ -34,15 +35,64 @@ function initDBConnection() {
     }
 };
 
+//------------Credentials------------
 var cred = initDBConnection();
 var uname = cred.username;
 var pwd = cred.password;
 var cloudant = Cloudant({account:uname , password:pwd});
 
+//------------Update----------------
+app.post('/OneMoreURL', function(req, res){
+    
+    var a, id, fn1, ln1, newfn1, newln1;
+    id = "21e6e6bea8aa8df3b6d49310359e1429";
+    fn1 = req.body.fn1;
+    ln1 = req.body.ln1;
+    
+    
+    a = cloudant.db.use('testdb');
+		a.get(id, function(err, data) {
+			if (err) {
+				res.json({err:err});
+				return;
+			}
+            
+            newfn1 = data.jayson.Name["First name"] = fn1;
+            newln1 = data.jayson.Name["Last name"] = ln1;              
+//                var j2 = {     
+//                "Name": { 
+//                          "First name": newfn1,
+//                          "Last name": newln1
+//                        }
+//            }
+//            a.insert({j2},
+//             function(err, body) {
+//                    if(err)
+//                            return console.log(err);
+//         });
+//
+//    });
+    
+        res.send("<br><br><center><br>First Name: "+"<b>"+newfn1+"</b>"+"<br><i>and</i><br> Last Name: "+"<b>"+newln1+"</b></center>"+fn1+ln1)
 
+        //    var j2 = {     
+        //            "Name": { 
+        //                      "First name": newfn1,
+        //                      "Last name": newln1
+        //                    }
+        //    }            
+
+
+        res.end()
+        });
+
+});
+
+//------------Search By ID--------------
 app.post('/AnotherURL', function(req, res){
    
-    var a, id, res;
+    
+    var a, id;
     id = req.body.idsearch;
     
     a = cloudant.db.use('testdb');
@@ -61,6 +111,8 @@ app.post('/AnotherURL', function(req, res){
             var n1 = data.jayson.Name["First name"];
             var n2 = data.jayson.Name["Last name"];
             res.send("<center>First Name: <b><i>" + n1 + "</i></b><br><br>Last Name: <b><i>" + n2 + "</i></b></center>");
+            
+    });
 			
             
 //            res.send("<center>Name: "+a.jayson["First name"]+" and Last Name: "+a.jayson["Last Name"]+"</center>")
@@ -74,14 +126,16 @@ app.post('/AnotherURL', function(req, res){
 //            
             
             
-        });
+        
 	} else {
 		res.json({err:"Please specify an id"});
 	}
     
 });
 
-app.get('/SomeURL', function(req, res){
+
+//------------Store Names--------------
+app.post('/SomeURL', function(req, res){
     
     var a, fn, ln;
     //console.log(req.body)
@@ -112,7 +166,6 @@ app.get('/SomeURL', function(req, res){
 });
 
 
-
 //------------Listen to port--------------
 app.listen(appEnv.port, '0.0.0.0', function() { 
     console.log("server starting on " + appEnv.url);
@@ -125,26 +178,26 @@ app.get('/', function(req, res) {
 });
 
 
-//-----------Creating and inserting into DB-------------
-//cloudant.db.destroy('a', function(err) {
-//
-//  cloudant.db.create('a', function() {
-//      
-//    var a = cloudant.db.use('a')
-//
-//    a.insert({ some: "aaaaa" }, 'mango', function(err, body, header) {
-//      if (err) {
-//        return console.log('[a.insert] ', err.message);
-//      }
-//    });
-//  });
-//});
+    //-----------Creating and inserting into DB-------------
+    //cloudant.db.destroy('a', function(err) {
+    //
+    //  cloudant.db.create('a', function() {
+    //      
+    //    var a = cloudant.db.use('a')
+    //
+    //    a.insert({ some: "aaaaa" }, 'mango', function(err, body, header) {
+    //      if (err) {
+    //        return console.log('[a.insert] ', err.message);
+    //      }
+    //    });
+    //  });
+    //});
 
 
 
-//----------Cloudant Credentials-------------
-//var uname = '121ed65d-c858-4398-aae1-46ee4412c6ca-bluemix';
-//var pwd = '42794d65ed772dffb67d878bc16737d5736b1b83f907184ec04913cc24dc7429';
-//var uname = process.env.cloudant_username;
-//var pwd = process.env.cloudant_password;
-//var cloudant = Cloudant({account:uname , password:pwd});
+    //----------Cloudant Credentials-------------
+    //var uname = '121ed65d-c858-4398-aae1-46ee4412c6ca-bluemix';
+    //var pwd = '42794d65ed772dffb67d878bc16737d5736b1b83f907184ec04913cc24dc7429';
+    //var uname = process.env.cloudant_username;
+    //var pwd = process.env.cloudant_password;
+    //var cloudant = Cloudant({account:uname , password:pwd});

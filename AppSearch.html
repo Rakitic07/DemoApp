@@ -63,12 +63,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!--<script type="text/javascript" src="materialize.js"></script>-->   
+
+
+    
+    <script>
+        function check() {
+            var x = document.forms["form2"]["fn1"].value;
+            var y = document.forms["form2"]["ln1"].value;
+            if (x == "" || y == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+        }
+    </script>
+    
 </head>
 
 <body> 
     <div align ="center" id="box-wrapper">
             <div id="box">
-            <form method="get" action="/SomeURL" id="search"><br><br><br><br>
+            <form method="post" action="/SomeURL" name="form1"  id="search"><br><br><br><br>
                 
                 <input placeholder="First name: " name="fn" type="text">
                 <input placeholder="Last name: " name="ln" type="text"><br>
@@ -78,12 +92,14 @@
                 
             </form>
                 
-            <form method="POST" action="/AnotherURL" id="search">
+            <form method="POST" action="/OneMoreURL" name="form2" id="search" onsubmit="return check()">
+<!--
             <input name="idsearch" placeholder="Search by id..." type="text">
                 <button class="btn waves-effect waves-light" type="submit" name="search">Search</button><br>
+-->
                 <input placeholder="First name: " name="fn1" type="text">
                 <input placeholder="Last name: " name="ln1" type="text">
-                <button class="btn waves-effect waves-light" type="submit" name="update">Update</button>
+                <button class="btn waves-effect waves-light" type="submit" value="submit" name="update">Update?</button>
             
             </form>
                 
