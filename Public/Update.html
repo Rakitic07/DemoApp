@@ -65,10 +65,10 @@
     <!--<script type="text/javascript" src="materialize.js"></script>-->          
     <script>
         function check() {
-            var x = document.forms["newform"]["fn1"].value;
-            var y = document.forms["newform"]["ln1"].value;
-            var z = document.forms["preform"]["docid"].value;
-            if (x == "" || y == "" || z =="") {
+            var x = document.forms["form1"]["fn1"].value;
+            var y = document.forms["form1"]["ln1"].value;
+            var z = document.forms["form1"]["docid"].value;
+            if (x == "" || y == "" || z == "") {
                 alert("Field(s) must be filled out");
                 return false;
             }
@@ -81,7 +81,7 @@
     <div align ="center" id="box-wrapper">
             <div id="box">
                 
-            <form method="POST" action="/UpdateSuccess" name="newform" id="search" onsubmit="return check()">
+            <form method="POST" action="/UpdateSuccess" name="form1" id="search" onsubmit="return check()">
                 <br><br><br><br><br><br><br>
                 <input placeholder="Specify an ID..." value="" name="docid" type="text"><br><br><br>
                 <font color="green">*For updating the Document, please specify the ID for the same</font><br><br>

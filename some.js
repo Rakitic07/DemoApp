@@ -65,6 +65,7 @@ app.post('/UpdateSuccess', function(req, res){
     
     
     a = cloudant.db.use('testdb');
+    if(id != ""){
 		a.get(id, function(err, data) {
 			if (err) {
 				res.json({err:err});
@@ -93,9 +94,12 @@ app.post('/UpdateSuccess', function(req, res){
 				//res.json(doc);
 			});
             
+
+    });
         res.send("<br><br><br><center><br>First Name: "+"<b>"+fn1+"</b>"+"<br><i>and</i><br> Last Name: "+"<b>"+ln1+"</b></center>")
+    }
+            
         res.end()
-    });   
 });
 
 //-----------DB Deletion-------------
