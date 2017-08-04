@@ -56,50 +56,41 @@
             box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9) inset;
             text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
             }
+        
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!--<script type="text/javascript" src="materialize.js"></script>-->   
-<script>
+    <!--<script type="text/javascript" src="materialize.js"></script>-->          
+    <script>
+        function check() {
+            var x = document.forms["newform"]["fn1"].value;
+            var y = document.forms["newform"]["ln1"].value;
+            var z = document.forms["preform"]["docid"].value;
+            if (x == "" || y == "" || z =="") {
+                alert("Field(s) must be filled out");
+                return false;
+            }
+        }
+    </script>
     
-//        function check() {
-//            var x = document.forms["form2"]["idsearch"].value;
-//            if (x == "") {
-//                alert("Please enter a valid ID");
-//                return false;
-//            }
-//        }
-    
-</script>
-    
-    
-
 </head>
 
 <body> 
     <div align ="center" id="box-wrapper">
             <div id="box">
-            <form method="post" action="/SomeURL" name="form1"  id="search"><br><br><br><br>
                 
-                <input placeholder="First name: " name="fn" type="text">
-                <input placeholder="Last name: " name="ln" type="text"><br>
-                 <button class="btn waves-effect waves-light" type="submit" value="submit" name="store">Store Name</button><br><br><br><br>
-                    <br><br><br><br><br>                
-<!--                <button class="btn waves-effect waves-light" type="submit" name="action">Search</button>-->
-                
+            <form id="unknown" name="preform" method="POST" action="/UpdateSuccess">
+                <br><br><br><br><br><br><br><br>
+                <input style="text-align:center;" placeholder="Type in the ID and Update your Document from the textfields below..." value="" name="docid" type="text"><br><br>
             </form>
                 
-            <form method="POST" action="/Update" name="form2" id="search">
-<!--                <input name="idsearch" placeholder="Search by ID..." type="text"><br>-->
-                <button class="btn waves-effect waves-light" type="submit" name="search">Update Document</button><br><br>Or...
-            </form>
-                
-                
-            <form method="POST" action="/Delete" name="form3" id="search">
-<!--                <input name="idsearch" placeholder="Search by ID..." type="text"><br>-->
-                <br>
-                <button class="btn waves-effect waves-light" type="submit" name="delete">Perform Delete Operation</button><br>
+            <form method="POST" action="/UpdateSuccess" name="newform" id="search" onsubmit="return check()">
+                <input placeholder="First name: " value="" name="fn1" type="text">
+                <input placeholder="Last name: " value="" name="ln1" type="text"><br>
+                <button class="btn waves-effect waves-light" type="submit" value="submit" name="update">Update</button>
+            
             </form>
                 
         </div>

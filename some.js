@@ -37,55 +37,66 @@ function initDBConnection() {
 
 //------------Credentials------------
 var cred = initDBConnection();
-var uname = cred.username;
-var pwd = cred.password;
+var uname = "121ed65d-c858-4398-aae1-46ee4412c6ca-bluemix";
+var pwd = "42794d65ed772dffb67d878bc16737d5736b1b83f907184ec04913cc24dc7429";
 var cloudant = Cloudant({account:uname , password:pwd});
 
 //------------Update----------------
-app.post('/OneMoreURL', function(req, res){
+app.post('/Update', function(req, res){  
+    
+    res.sendFile(path.join(__dirname+'/Public/Update.html'));
+      
+});
+
+//-----------Delete------------
+app.post('/Delete', function(req, res){  
+    
+    res.sendFile(path.join(__dirname+'/Public/Delete.html'));
+      
+});
+
+//--------------Successful Update---------------
+app.post('/UpdateSuccess', function(req, res){
     
     var a, id, fn1, ln1, newfn1, newln1;
-    id = "21e6e6bea8aa8df3b6d49310359e1429";
+    id = req.body.docid;
     fn1 = req.body.fn1;
     ln1 = req.body.ln1;
     
     
     a = cloudant.db.use('testdb');
 		a.get(id, function(err, data) {
-			if (err) {
+			if (err || id == "") {
 				res.json({err:err});
+                res.send("Id is: "+id);
 				return;
 			}
+            console.log(JSON.stringify(data))
+            var doc = {    
+                           "_id" : data._id,
+                           "_rev": data._rev,
+                           "old_doc":data.new_doc,
+                           "new_doc": {
+                               "Name":{
+                                   "First Name":fn1,
+                                   "Last Name":ln1
+                               }
+                           }
+                           
+                      }
             
-            newfn1 = data.jayson.Name["First name"] = fn1;
-            newln1 = data.jayson.Name["Last name"] = ln1;              
-//                var j2 = {     
-//                "Name": { 
-//                          "First name": newfn1,
-//                          "Last name": newln1
-//                        }
-//            }
-//            a.insert({j2},
-//             function(err, body) {
-//                    if(err)
-//                            return console.log(err);
-//         });
-//
-//    });
-    
-        res.send("<br><br><center><br>First Name: "+"<b>"+newfn1+"</b>"+"<br><i>and</i><br> Last Name: "+"<b>"+newln1+"</b></center>"+fn1+ln1)
-
-        //    var j2 = {     
-        //            "Name": { 
-        //                      "First name": newfn1,
-        //                      "Last name": newln1
-        //                    }
-        //    }            
-
-
+            a.insert(doc, function(err, data) {
+				if (err) {
+					res.json({err:err});
+					return;
+				}
+	
+				//res.json(doc);
+			});
+            
+        res.send("<br><br><center><br>First Name: "+"<b>"+fn1+"</b>"+"<br><i>and</i><br> Last Name: "+"<b>"+ln1+"</b></center>"+id)
         res.end()
-        });
-
+    });   
 });
 
 //------------Search By ID--------------
@@ -171,11 +182,18 @@ app.listen(appEnv.port, '0.0.0.0', function() {
     console.log("server starting on " + appEnv.url);
 });
 
+//---------Local Port-------------
+//app.listen(8081);
 
 //-----------File Path----------
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname+'/AppSearch.html'));
+    res.sendFile(path.join(__dirname+'/Public/AppSearch.html'));
 });
+
+
+//app.get('/OneMoreURL', function(req, res) {
+//    res.sendFile(path.join(__dirname+'/Public/Update.html'));
+//});
 
 
     //-----------Creating and inserting into DB-------------
