@@ -32,7 +32,7 @@
             border: 0 none;
             font: bold italic 15px Roboto;
             color: #d7d7d7;
-            width:190px;
+            width:550px;
             padding: 6px 15px 6px 35px;
             -webkit-border-radius: 20px;
             -moz-border-radius: 20px;
@@ -50,7 +50,7 @@
         #box #search input[type="text"]:focus {
             background: #fcfcfc;
             color: #6a6f75;
-            width: 400px;
+            width: 620px;
             -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9) inset;
             -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9) inset;
             box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(0, 0, 0, 0.9) inset;
@@ -81,12 +81,10 @@
     <div align ="center" id="box-wrapper">
             <div id="box">
                 
-            <form id="unknown" name="preform" method="POST" action="/UpdateSuccess">
-                <br><br><br><br><br><br><br><br>
-                <input style="text-align:center;" placeholder="Type in the ID and Update your Document from the textfields below..." value="" name="docid" type="text"><br><br>
-            </form>
-                
             <form method="POST" action="/UpdateSuccess" name="newform" id="search" onsubmit="return check()">
+                <br><br><br><br><br><br><br>
+                <input placeholder="Specify an ID..." value="" name="docid" type="text"><br><br><br>
+                <font color="green">*For updating the Document, please specify the ID for the same</font><br><br>
                 <input placeholder="First name: " value="" name="fn1" type="text">
                 <input placeholder="Last name: " value="" name="ln1" type="text"><br>
                 <button class="btn waves-effect waves-light" type="submit" value="submit" name="update">Update</button>

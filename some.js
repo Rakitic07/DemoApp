@@ -66,9 +66,8 @@ app.post('/UpdateSuccess', function(req, res){
     
     a = cloudant.db.use('testdb');
 		a.get(id, function(err, data) {
-			if (err || id == "") {
+			if (err) {
 				res.json({err:err});
-                res.send("Id is: "+id);
 				return;
 			}
             console.log(JSON.stringify(data))
@@ -94,59 +93,109 @@ app.post('/UpdateSuccess', function(req, res){
 				//res.json(doc);
 			});
             
-        res.send("<br><br><center><br>First Name: "+"<b>"+fn1+"</b>"+"<br><i>and</i><br> Last Name: "+"<b>"+ln1+"</b></center>"+id)
+        res.send("<br><br><br><center><br>First Name: "+"<b>"+fn1+"</b>"+"<br><i>and</i><br> Last Name: "+"<b>"+ln1+"</b></center>")
         res.end()
     });   
 });
 
-//------------Search By ID--------------
-app.post('/AnotherURL', function(req, res){
-   
+//-----------DB Deletion-------------
+app.post('/DBDeleted', function(req, res){
+    
+    var a, dbname;
+    
+    dbname = req.body.del_db;
+    a = cloudant.db.use('_all_dbs');
+    
+    if(dbname != ""){
+        
+        cloudant.db.destroy(dbname, function(err, data) {
+		if (err) {
+			res.json({err:err});
+			return;
+		}		
+		//res.json({data:data});
+	});
+        
+    res.send("<center><br><br><br>DB:<i><b> " + dbname + "</b></i>  deleted Successfully!</center>");
+}
+    res.end();
+    
+});
+
+//-----------Doc Deletion-----------
+app.post('/DocDeleted', function(req, res){
     
     var a, id;
-    id = req.body.idsearch;
+    id = req.body.del_ID;   
     
     a = cloudant.db.use('testdb');
-    
-    if (id != "") {
+      if(id != ""){
 		a.get(id, function(err, data) {
 			if (err) {
 				res.json({err:err});
 				return;
 			}
-            
-            //res.json({data:data});
-            
-                                                    
-//          var output = {First_Name : data.jayson.Name["First name"], Last_Name : data.jayson.Name["Last name"]};
-            var n1 = data.jayson.Name["First name"];
-            var n2 = data.jayson.Name["Last name"];
-            res.send("<center>First Name: <b><i>" + n1 + "</i></b><br><br>Last Name: <b><i>" + n2 + "</i></b></center>");
-            
-    });
-			
-            
-//            res.send("<center>Name: "+a.jayson["First name"]+" and Last Name: "+a.jayson["Last Name"]+"</center>")
-            
-            //var jayson = JSON.parse(data);
-            //res.send(jayson.jayson.Name["First name"]+ " " +jayson.jayson.Name["Last name"])
-//            for(var d in data){
-//                  res += JSON.parse(d);              
-//            }
-//            res.send("JSON parsed: "+res);
-//            
-            
-            
-        
-	} else {
-		res.json({err:"Please specify an id"});
-	}
-    
+			a.destroy(data._id, data._rev, function(err, data) {
+				if (err) {
+					res.json({err:err});
+					return;
+				}
+			});
+    }); 
+          
+    res.send("<center><br><br><br>Document:<i><b> " + id + "</b></i>  deleted Successfully!</center>");
+  }
+    res.end()
 });
+
+//------------Search By ID--------------
+//app.post('/AnotherURL', function(req, res){
+//   
+//    
+//    var a, id;
+//    id = req.body.idsearch;
+//    
+//    a = cloudant.db.use('testdb');
+//    
+//    if (id != "") {
+//		a.get(id, function(err, data) {
+//			if (err) {
+//				res.json({err:err});
+//				return;
+//			}
+//            
+//            //res.json({data:data});
+//            
+//                                                    
+////          var output = {First_Name : data.jayson.Name["First name"], Last_Name : data.jayson.Name["Last name"]};
+//            var n1 = data.jayson.Name["First name"];
+//            var n2 = data.jayson.Name["Last name"];
+//            res.send("<center>First Name: <b><i>" + n1 + "</i></b><br><br>Last Name: <b><i>" + n2 + "</i></b></center>");
+//            
+//    });
+//			
+//            
+////            res.send("<center>Name: "+a.jayson["First name"]+" and Last Name: "+a.jayson["Last Name"]+"</center>")
+//            
+//            //var jayson = JSON.parse(data);
+//            //res.send(jayson.jayson.Name["First name"]+ " " +jayson.jayson.Name["Last name"])
+////            for(var d in data){
+////                  res += JSON.parse(d);              
+////            }
+////            res.send("JSON parsed: "+res);
+////            
+//            
+//            
+//        
+//	} else {
+//		res.json({err:"Please specify an id"});
+//	}
+//    
+//});
 
 
 //------------Store Names--------------
-app.post('/SomeURL', function(req, res){
+app.post('/NameStored', function(req, res){
     
     var a, fn, ln;
     //console.log(req.body)
@@ -155,7 +204,7 @@ app.post('/SomeURL', function(req, res){
     ln = req.body.ln;
     
     
-    var jayson = {     
+    var new_doc = {     
             "Name": { 
                       "First name": fn,
                       "Last name": ln
@@ -165,7 +214,7 @@ app.post('/SomeURL', function(req, res){
 //cloudant.db.destroy('testdb', function() {
 //cloudant.db.create('testdb', function() {
     a = cloudant.db.use('testdb');
-  	a.insert({jayson},
+  	a.insert({new_doc},
 	 function(err, body) {
 	    	if(err)
 	    			return console.log(err);

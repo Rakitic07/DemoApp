@@ -67,10 +67,15 @@
     
     <script>
         function check() {
-            var x = document.forms["newform"]["fn1"].value;
-            var y = document.forms["newform"]["ln1"].value;
-            if (x == "" || y == "") {
-                alert("Name must be filled out");
+            if (document.forms["del1"]["del_ID"].value == "") {
+                alert("Please specify an ID");
+                return false;
+            }
+        }
+        
+        function check2() {
+            if (document.forms["del2"]["del_db"].value == "") {
+                alert("Please specify the DB name");
                 return false;
             }
         }
@@ -82,17 +87,20 @@
     <div align ="center" id="box-wrapper">
             <div id="box">
                 
-            <form method="POST" action="/DeleteSuccess" name="newform" id="search" onsubmit="return check()">
+            <form method="POST" action="/DocDeleted" name="del1" id="search" onsubmit="return check()">
                 <br><br><br><br>
                 <br>
                 <br><br><br><br>
                 <input placeholder="Type in the ID" value="" name="del_ID" type="text">             
                 <button class="btn waves-effect waves-light" type="submit" value="submit" name="delid">Delete Document</button>
                 <br><br><font size="4">Or...</font><br><br><br><br>
-                <input placeholder="Type the DB name" value="" name="del_db" type="text">
-                <button class="btn waves-effect waves-light" type="submit" value="submit" name="deldb">Delete Database</button>
-            
+                            
             </form>
+                
+                <form method="POST" action="/DBDeleted" name="del2" id="search" onsubmit="return check2()">
+                    <input placeholder="Type the DB name" value="" name="del_db" type="text">
+                    <button class="btn waves-effect waves-light" type="submit" value="submit" name="deldb">Delete Database</button>
+                </form>    
                 
         </div>
     </div>

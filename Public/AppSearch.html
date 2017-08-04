@@ -63,13 +63,14 @@
     <!--<script type="text/javascript" src="materialize.js"></script>-->   
 <script>
     
-//        function check() {
-//            var x = document.forms["form2"]["idsearch"].value;
-//            if (x == "") {
-//                alert("Please enter a valid ID");
-//                return false;
-//            }
-//        }
+        function check() {
+            var x = document.forms["form1"]["fn"].value;
+            var y = document.forms["form1"]["ln"].value;
+            if (x == "" || y == "") {
+                alert("Please fill the field(s)");
+                return false;
+            }
+        }
     
 </script>
     
@@ -80,7 +81,7 @@
 <body> 
     <div align ="center" id="box-wrapper">
             <div id="box">
-            <form method="post" action="/SomeURL" name="form1"  id="search"><br><br><br><br>
+            <form method="post" action="/NameStored" name="form1" onsubmit="return check()" id="search"><br><br><br><br>
                 
                 <input placeholder="First name: " name="fn" type="text">
                 <input placeholder="Last name: " name="ln" type="text"><br>
