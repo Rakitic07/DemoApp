@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 
 //----------CloudFoundary Runtime Modules----------
-var Cloudant = require('cloudant');
+var cloudant = require('cloudant');
 var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv(); 
 
@@ -39,7 +39,7 @@ function initDBConnection() {
 var cred = initDBConnection();
 var uname = cred.username;
 var pwd = cred.password;
-var cloudant = Cloudant({account:uname , password:pwd});
+var cloudant = cloudant({account:uname , password:pwd});
 
 //------------Update----------------
 app.post('/Update', function(req, res){  

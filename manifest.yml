@@ -6,4 +6,3 @@ applications:
   name: DemoApp32121
   host: DemoApp32121
   disk_quota: 1024M
----
