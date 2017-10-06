@@ -263,12 +263,3 @@ app.get('/', function(req, res) {
     //    });
     //  });
     //});
-
-
-
-    //----------Cloudant Credentials-------------
-    //var uname = '121ed65d-c858-4398-aae1-46ee4412c6ca-bluemix';
-    //var pwd = '42794d65ed772dffb67d878bc16737d5736b1b83f907184ec04913cc24dc7429';
-    //var uname = process.env.cloudant_username;
-    //var pwd = process.env.cloudant_password;
-    //var cloudant = Cloudant({account:uname , password:pwd});
